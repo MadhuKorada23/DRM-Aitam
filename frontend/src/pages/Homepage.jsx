@@ -177,7 +177,7 @@ const Homepage = ({footerHeight}) => {
     <>
       {/* Header/Navbar - Fixed */}
       <div style={{
-  background: 'linear-gradient(90deg, #0d47a1, #1a237e)', // Deep blue gradient
+  background: 'linear-gradient(90deg,rgb(66, 106, 166),rgb(49, 84, 149))', // Deep blue gradient
   padding: '12px 0',
   position: 'fixed',
   top: 0,
