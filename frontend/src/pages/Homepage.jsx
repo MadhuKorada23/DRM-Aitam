@@ -177,7 +177,7 @@ const Homepage = ({footerHeight}) => {
     <>
       {/* Header/Navbar - Fixed */}
       <div style={{
-  background: 'linear-gradient(90deg,rgb(66, 106, 166),rgb(49, 84, 149))', // Deep blue gradient
+  background: 'linear-gradient(90deg,#0066cc,#003366)', // Deep blue gradient
   padding: '12px 0',
   position: 'fixed',
   top: 0,
@@ -218,7 +218,7 @@ const Homepage = ({footerHeight}) => {
           textShadow: '0 1px 3px rgba(0,0,0,0.3)'
         }}
       >
-        Dynamic Rooms
+        AITAM Digital Room Management Portal
       </h3>
 
       {/* Search Bar */}
@@ -233,7 +233,7 @@ const Homepage = ({footerHeight}) => {
         <input
           type="search"
           className="form-control me-2"
-          placeholder="Search..."
+          placeholder="Search Rooms..!"
           onChange={(e) => handleSearch(e)}
           style={{
             backgroundColor: '#f0f0f0',

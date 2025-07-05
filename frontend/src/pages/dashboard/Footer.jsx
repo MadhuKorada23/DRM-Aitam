@@ -12,7 +12,7 @@ const Footer = forwardRef((props, ref) => {  // Correct: (props, ref)
             ref={ref}
             className="text-white text-center py-3 px-2"
             style={{
-              background: 'linear-gradient(to right, #0d47a1, #1a237e)', // subtle gradient
+              background: 'linear-gradient(to right,#0066cc, #003366)', // subtle gradient
               position: 'fixed',
               bottom: 0,
               width: '100%',
