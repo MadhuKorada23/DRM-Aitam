@@ -14,22 +14,23 @@ const Roomform = () => {
   const navigate = useNavigate();
 
   const { state } = useLocation();
-  const [floor, setFloorId] = useState(state.floor);
-  const [Block, setBlockId] = useState(state.Block);
-
+  const [floorId, setFloorId] = useState(state.floor);
+  const [BlockId, setBlockId] = useState(state.Block);
+  const [blockname,setBlockName] = useState(state.BlockName);
+  const [floorName,setFloorName] = useState(state.floorname);
   useEffect(() => {
-    setRoomId(floor.floor_name);
-  }, [floor.floor_name]);
+    setRoomId(floorName+"-");
+  }, [floorName]);
 
   const handleAddRoom = async (e) => {
     e.preventDefault();
     try {
       await axios.post(
-        `http://localhost:5000/block/floors/room/${Block._id}/${floor._id}`,
+        `http://localhost:5000/block/floors/room/${BlockId}/${floorId}`,
         {
-          room_id: roomId,
-          room_name: roomName,
-          room_type: roomType,
+          room_id: roomId.trim(),
+          room_name: roomName.trim(),
+          room_type: roomType.trim(),
           room_capacity: roomCapacity,
           occupied: roomOccupied, 
         }
@@ -41,7 +42,7 @@ const Roomform = () => {
       setRoomOccupied(false);
 
       alert("Room successfully added.");
-      navigate(`/aitam/${Block.block_name}`, { state: { block: Block } });
+      navigate(`/aitam/${blockname}/${floorId}/rooms`, { state: { block: blockname } });
     } catch (error) {
       setErr("Failed to add room");
       console.error(error);
@@ -53,8 +54,8 @@ const Roomform = () => {
   };
 
   const backhandler = () => {
-    navigate(`/aitam/${Block.block_name}`, {
-      state: { block: Block, from: "modify-room" }, 
+    navigate(`/aitam/${blockname}/${floorId}/rooms`, {
+      state: { block: blockname, from: "modify-room" }, 
       replace: true,
     });
   };
@@ -68,7 +69,7 @@ const Roomform = () => {
       <input
         type="text"
         className="room-input"
-        value={roomId+"-"}
+        value={roomId}
         onChange={(e) => setRoomId(e.target.value)}
         placeholder="Enter room Id"
         required

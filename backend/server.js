@@ -3,7 +3,8 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const blockRoutes = require("./Routes/blockRoutes");
-const authRoutes = require("./Routes/authRoutes"); 
+const authRoutes = require("./Routes/authRoutes");
+const noticeBoard = require("./Routes/noticeRoutes") 
 const Timetable = require("./Routes/timetableRoutes");
 // const TimetableUploadRoutes = require("./Routes/timetableUploadRoutes");
 dotenv.config();
@@ -18,9 +19,12 @@ app.use(express.json());
 app.use("/block", blockRoutes);
 app.use("/auth", authRoutes); 
 app.use("/periods",Timetable);
+app.use("/noticeBoard",noticeBoard)
 // app.use("/timetable", TimetableUploadRoutes);
 // app.use("/api", protectedRoutes);
-
+app.get('/', (req, res) => {
+  res.send('DR Backend is Running...');
+});
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

@@ -5,15 +5,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AOS from "aos";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "aos/dist/aos.css";
-import "./loginform.css"; 
+// import "./loginform.css"; //  Import the CSS
 
-const Login = ({ setIsAuthenticated }) => {
+const AdminLogin = ({ setIsAuthenticated }) => {
   const [userId, setUserId] = useState("");
-  // const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  // const [isAdmin, setIsAdmin] = useState(false); 
+//   const [isAdmin, setIsAdmin] = useState(false); 
   const [loading, setLoading] = useState(false);
-  // const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,15 +41,14 @@ const Login = ({ setIsAuthenticated }) => {
     try {
       // 🔧 Trim values before sending
       const trimmedUserId = userId.trim();
-      // const trimmedPassword = password.trim();
+      const trimmedPassword = password.trim();
 
-      const payload = { userId: trimmedUserId };
+        
+        const payload = {userId: trimmedUserId, password: trimmedPassword}
 
       const res = await axios.post("http://localhost:5000/auth/login", payload);
 
-      // if (isAdmin && res) {
-      //   await axios.get(`http://localhost:5000/auth/userDetails/${trimmedUserId}`);
-      // }
+   
 
       sessionStorage.setItem("token", JSON.stringify(res.data.token));
       setIsAuthenticated(true);
@@ -92,7 +91,8 @@ const Login = ({ setIsAuthenticated }) => {
             />
           </div>
 
-          <h2 className="mb-3 text-dark">Student Login</h2>
+          {/* <h2 className="mb-3 text-dark">{isAdmin ? "Admin Login" : "Student Login"}</h2> */}
+          <h2 className="mb-3 text-dark">Admin Login</h2>
           {error && <p className="text-danger small">{error}</p>}
 
           {/* Login Form */}
@@ -110,7 +110,27 @@ const Login = ({ setIsAuthenticated }) => {
               />
             </div>
 
-           
+            {/* {isAdmin && ( */}
+              <div className="mb-3 input-group position-relative">
+                <span className="input-group-text"><i className="bi bi-lock"></i></span>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="form-control"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  disabled={loading}
+                />
+                <span
+                  className="input-group-text"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ cursor: loading ? "not-allowed" : "pointer" }}
+                >
+                  <i className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`}></i>
+                </span>
+              </div>
+            {/* )} */}
 
             <button type="submit" className="btn btn-primary w-100" disabled={loading}>
               {loading ? (
@@ -124,11 +144,19 @@ const Login = ({ setIsAuthenticated }) => {
             </button>
           </form>
 
-         
+          {/* Toggle Admin/Student */}
+          {/* <p
+            className="mt-3 text-primary"
+            style={{ cursor: loading ? "not-allowed" : "pointer" }}
+            onClick={() => !loading && setIsAdmin(!isAdmin)}
+          >
+            {isAdmin ? "Login as Student" : "Login as Admin"}
+          </p> */}
         </div>
       </div>
     </>
   );
 };
 
-export default Login;
+
+export default AdminLogin
